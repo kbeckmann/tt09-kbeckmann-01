@@ -17,11 +17,22 @@ module tt_um_tt09_kbeckmann_01 (
 );
 
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = 8'b00000000;
+  // assign uo_out  = 8'b00000000;
   assign uio_out = 8'b00000000;
   assign uio_oe  = 8'b00000000;
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, clk, rst_n, ui_in, uio_in};
+
+  reg [7:0] counter;
+  assign uo_out = counter;
+
+  always @(posedge clk) begin
+    if (~rst_n) begin
+      counter <= 8'b00000000;
+    end else begin
+      counter <= counter + 1;
+    end
+  end
 
 endmodule
